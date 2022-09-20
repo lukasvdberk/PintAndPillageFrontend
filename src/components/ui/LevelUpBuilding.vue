@@ -4,7 +4,7 @@
             <div class="notInProgress" v-if="!currentBuilding.isUnderConstruction">
 <!--                <h2>Next level +20 {{currentBuilding.generatesResource.toLowerCase()}}</h2>-->
                 <div class="levelUpInfoContainer">
-                    <button id="remove-building-button" class="removeButton" @click="removeBuilding()">Remove</button>
+                    <button id="remove-building-button" class="removeButton" @click="removeBuilding">Remove</button>
                     <div class="altResources">
                         <!--<p>time : {{currentBuilding.constructionTime}}</p>-->
                         <time-frame :required-time="currentBuilding.constructionTime"></time-frame>
@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div v-else class="underConstruction">
-                <time-frame :required-time="currentBuilding.constructionTimeLeft"></time-frame>
+                <time-frame id="time-left-building" :required-time="currentBuilding.constructionTimeLeft"></time-frame>
                 <p id="building-is-under-construction">Building is under construction</p>
             </div>
 

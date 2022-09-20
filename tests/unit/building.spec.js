@@ -68,8 +68,12 @@ describe('Building', () => {
 
     it('should show building is under construction when under construction', () => {
         setupLevelBuildingUpComponent()
-        const message = levelUpBuildingWrapper.find('#building-is-under-construction')
 
+        const message = levelUpBuildingWrapper.find('#building-is-under-construction')
+        const timeLeftBuilding = levelUpBuildingWrapper.find('#time-left-building')
+
+        const expectedTimeLeftBuilding = '00:12:00'
+        expect(timeLeftBuilding.vm._props.requiredTime).toBe(expectedTimeLeftBuilding) // should have the correct amount of time left
         expect(message.element.textContent).toBe("Building is under construction")
     });
 
@@ -222,7 +226,7 @@ describe('Building', () => {
     });
 
     it('should remove building when the remove building button is pressed', async () => {
-        expect.assertions(4);
+        expect.assertions(3);
         const building = BUILDING_TEST_DATA;
         building.isUnderConstruction = false;
         building.resourcesRequiredLevelUp.Wood = 50;
@@ -241,8 +245,6 @@ describe('Building', () => {
         villageData.villageResources.Hop = 60;
         villageData.populationLeft = 3000; // enough population to level up building
         setupLevelBuildingUpComponent(vueStoreGetters, villageData);
-
-        const removeBuildingSpy = jest.spyOn(levelUpBuildingWrapper.vm, 'removeBuilding');
 
         const expectedRemovalPopupMessage = 'Are you sure you want to delete the level ' + building.level + ' ' + building.name + '?' +
             'This action cannot be undone and no resources will be returned'
@@ -266,9 +268,5 @@ describe('Building', () => {
         const removeBuildingButton = levelUpBuildingWrapper.find('#remove-building-button')
         await removeBuildingButton.trigger('click');
         await levelUpBuildingWrapper.vm.$nextTick();
-
-        expect(removeBuildingSpy).toHaveBeenCalled();
     });
-    // TODO test update building
-    // TODO test time left.
 });
