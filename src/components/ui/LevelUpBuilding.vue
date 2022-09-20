@@ -4,14 +4,14 @@
             <div class="notInProgress" v-if="!currentBuilding.isUnderConstruction">
 <!--                <h2>Next level +20 {{currentBuilding.generatesResource.toLowerCase()}}</h2>-->
                 <div class="levelUpInfoContainer">
-                    <button class="removeButton" @click="removeBuilding">Remove</button>
+                    <button id="remove-building-button" class="removeButton" @click="removeBuilding()">Remove</button>
                     <div class="altResources">
                         <!--<p>time : {{currentBuilding.constructionTime}}</p>-->
                         <time-frame :required-time="currentBuilding.constructionTime"></time-frame>
                         <population-frame :checkAvailability='checkAvailability' :populationLeft="currentBuilding.populationRequiredNextLevel"></population-frame>
                     </div>
                     <resource-item :checkAvailability='checkAvailability' :resources="currentBuilding.resourcesRequiredLevelUp" :displayTooltip="false"></resource-item>
-                    <button :disabled="!canBeLeveledUp()" @click="updateBuilding">Level Up</button>
+                    <button id="level-up-building" :disabled="!canBeLeveledUp()" @click="updateBuilding">Level Up</button>
                 </div>
             </div>
             <div v-else class="underConstruction">
@@ -64,7 +64,6 @@
                 })
             },
             removeBuilding: function () {
-
                 this.$dialog.confirm('Are you sure you want to delete the level ' + this.currentBuilding.level + ' ' + this.currentBuilding.name + '?' +
                         'This action cannot be undone and no resources will be returned')
                         .then(() => {
