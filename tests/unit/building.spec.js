@@ -222,7 +222,7 @@ describe('Building', () => {
     });
 
     it('should remove building when the remove building button is pressed', async () => {
-        expect.hasAssertions();
+        expect.assertions(4);
         const building = BUILDING_TEST_DATA;
         building.isUnderConstruction = false;
         building.resourcesRequiredLevelUp.Wood = 50;
@@ -243,24 +243,23 @@ describe('Building', () => {
         setupLevelBuildingUpComponent(vueStoreGetters, villageData);
 
         const removeBuildingSpy = jest.spyOn(levelUpBuildingWrapper.vm, 'removeBuilding');
-        const dialogConfirmedSpy = jest.spyOn(levelUpBuildingWrapper.vm.$dialog, 'confirm');
-
 
         const expectedRemovalPopupMessage = 'Are you sure you want to delete the level ' + building.level + ' ' + building.name + '?' +
             'This action cannot be undone and no resources will be returned'
 
-        jest.fn(levelUpBuildingWrapper.vm.$dialog.confirm, (actualMessage) => {
+
+        levelUpBuildingWrapper.vm.$dialog.confirm = jest.fn().mockImplementation((actualMessage) => {
             expect(actualMessage).toBe(expectedRemovalPopupMessage);
             return Promise.resolve(true); // confirm the removal
         });
 
         const expectedType = 'removeBuilding';
-        const expectedBuildingIdToBeRemoved = building.id;
-        jest.fn(levelUpBuildingWrapper.vm.$store.dispatch, (actualType, buildingId) => {
+        const expectedBuildingIdToBeRemoved = building.buildingId;
+        levelUpBuildingWrapper.vm.$store.dispatch  = jest.fn().mockImplementation((actualType, actualBuildingId) => {
             // expect removal of building to be called
             expect(actualType).toBe(expectedType);
-            expect(buildingId).toBe(expectedBuildingIdToBeRemoved);
-            return Promise.resolve(true); // confirm the removal
+            expect(actualBuildingId).toBe(expectedBuildingIdToBeRemoved);
+            return Promise.resolve(); // confirm the removal
         });
 
 
@@ -268,12 +267,7 @@ describe('Building', () => {
         await removeBuildingButton.trigger('click');
         await levelUpBuildingWrapper.vm.$nextTick();
 
-        // check if popup is shown
-
-        // expect(isPopUpDisplayed).toBeTruthy();
-        // TODO test add then for when dialog clicked, maybe another test
-        // expect(removeBuildingSpy).toHaveBeenCalled();
-        // expect(dialogConfirmedSpy).toHaveBeenCalled(); // confirm dialog has been opened
+        expect(removeBuildingSpy).toHaveBeenCalled();
     });
     // TODO test update building
     // TODO test time left.
