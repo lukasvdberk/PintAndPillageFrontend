@@ -63,11 +63,11 @@ describe('Village', () => {
     });
 
     it('should not show tutorial model when you login for the first time', () => {
-        const firstTimeLogin = true;
+        const firstTimeLogin = false;
         setup(firstTimeLogin);
-        const actualText = villageWrapper.find('#elwrick-pintbreaker-header').text()
+        const actualElement = villageWrapper.find('#elwrick-pintbreaker-header')
 
-        const expectedMessage = "Elwrick Pintbreaker"
-        expect(actualText).toBe(expectedMessage)
+        const expectedElementValue = undefined
+        expect(actualElement.element).toBe(expectedElementValue)
     });
 });
