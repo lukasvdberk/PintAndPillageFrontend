@@ -63,8 +63,7 @@ afterEach(() =>{
 })
 
 
-// TODO  test suite uitbreiden
-describe('Building', () => {
+describe('LevelUpBuilding', () => {
 
     it('should show building is under construction when under construction', () => {
         setupLevelBuildingUpComponent()
