@@ -1,12 +1,13 @@
-import {createLocalVue, mount, shallowMount} from "@vue/test-utils";
+import {createLocalVue, shallowMount} from "@vue/test-utils";
 import Vuex from "vuex";
-import ResourcesModal from "../../src/components/ui/modals/ResourcesModal";
 import LevelUpBuilding from "../../src/components/ui/LevelUpBuilding";
+import TimeFrame from "@/components/ui/TimeFrame";
 
-let resourceModalWrapper;
+let levelUpBuildingWrapper;
 let store;
 let getters;
 const localVue = createLocalVue()
+localVue.component('time-frame', TimeFrame)
 localVue.component('LevelUpBuilding', LevelUpBuilding)
 localVue.use(Vuex)
 
@@ -17,11 +18,18 @@ beforeEach(() => {
         }
     }
 
+    const state = {
+        village: {
+            data: require("./mockData/village_mock_data.json")
+        }
+    }
+
     store = new Vuex.Store({
+        state,
         getters
     })
 
-    resourceModalWrapper = shallowMount(ResourcesModal, {
+    levelUpBuildingWrapper = shallowMount(LevelUpBuilding, {
         store,
         localVue,
     });
@@ -29,32 +37,19 @@ beforeEach(() => {
 });
 
 afterAll(() =>{
-    resourceModalWrapper.destroy()
+    levelUpBuildingWrapper.destroy()
 })
 
-describe('ResourcesModal', () => {
-    it('should displays buildingName correctly when created', async () => {
-        const expectedText = "Mine - Lv 1"
-        const actualText = resourceModalWrapper.find("#buildingName").text()
-
-        expect(actualText).toBe(expectedText)
-    });
-
-    it('should displays resources per hour correctly when resources 80 stone per hour', async () => {
-        const expectedText = "80 Stone / Hour"
-        const actualText = resourceModalWrapper.find("#buildingDescription").text()
-
-        expect(actualText).toBe(expectedText)
-    });
+describe('LevelUpBuilding', () => {
 
     it('should show building is under construction when under construction', function () {
-        const message = resourceModalWrapper.find('#building-is-under-construction').text()
+        const message = levelUpBuildingWrapper.find('#building-is-under-construction')
 
         expect(message.element.textContent).toBe("Building is under construction")
     });
 
     it('should level up the building', function () {
-        const message = resourceModalWrapper.find('#building-is-under-construction')
+        const message = levelUpBuildingWrapper.find('#building-is-under-construction')
 
         expect(message.element.textContent).toBe("Building is under construction")
     });
