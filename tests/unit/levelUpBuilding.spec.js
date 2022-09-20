@@ -40,6 +40,8 @@ afterAll(() =>{
     levelUpBuildingWrapper.destroy()
 })
 
+
+// TODO  test suite uitbreiden
 describe('LevelUpBuilding', () => {
 
     it('should show building is under construction when under construction', function () {
