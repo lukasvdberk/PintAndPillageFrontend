@@ -7,6 +7,7 @@ let resourceModalWrapper;
 let store;
 let getters;
 const localVue = createLocalVue()
+
 localVue.component('LevelUpBuilding', LevelUpBuilding)
 localVue.use(Vuex)
 

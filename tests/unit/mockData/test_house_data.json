@@ -1,0 +1,22 @@
+{
+  "buildingId": 0,
+  "description": "Produces stone for your village",
+  "level": 1,
+  "producesResources": false,
+  "buildingLevelRequiredToLevelup": {},
+  "constructionTimeLeft": "00:12:00",
+  "constructionTime": "00:00:12",
+  "levelupFinishedTime": null,
+  "constructionTimeSeconds": 12,
+  "position": 300,
+  "resourcesRequiredLevelUp": {
+    "Wood": 25
+  },
+  "populationRequiredNextLevel": 7,
+  "totalPopulationInUse": 0,
+  "points": 0,
+  "lastCollected": null,
+  "generatesResource": "Stone",
+  "name": "House",
+  "isUnderConstruction": false
+}

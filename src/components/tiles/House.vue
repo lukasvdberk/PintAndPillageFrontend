@@ -1,7 +1,7 @@
 <template>
     <div class="clickableTile">
         <construction-tile v-if="buildingProperties.isUnderConstruction"></construction-tile>
-        <img v-else class="tileImgHouse" :src="getTileSource()"/>
+        <img id="tile-image" v-else class="tileImgHouse" :src="getTileSource()"/>
     </div>
 </template>
 
