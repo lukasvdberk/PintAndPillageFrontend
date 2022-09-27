@@ -1,5 +1,5 @@
 // 25 Vijandige dorpen op de wereldkaart aanvallen zodat ik resources van deze dorpen kan stelen.
-describe('Login page', () => {
+describe('Attacking village', () => {
     beforeEach(() => {
         cy.visit('/login')
         cy.get('#username').type('test6@mail.com')
